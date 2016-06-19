@@ -12,12 +12,17 @@ import numpy
 def tStatistics(mean1,mean2,var1,var2,sampleSize1,sampleSize2):
     return (mean1-mean2)/numpy.sqrt(((sampleSize1-1)*var1+(sampleSize2-1)*var2)/(sampleSize1+sampleSize2-2)*(1/sampleSize1+1/sampleSize1))
 
+meansAmount=10
+minMean=0
+maxMean=10
+step=(maxMean-minMean)/meansAmount
 
-distributionMeans=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6]
-sampleSizes=[5,10,100]
+distributionMeans=numpy.arange(minMean,maxMean,step)
+#distributionMeans=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.4,1.5,1.6]
+sampleSizes=[5,10,20,30,50,75,100]
 
 
-stddev=2
+stddev=maxMean
 alpha=0.05
 iterationAmount=500
 
@@ -76,9 +81,11 @@ for sampleSize in sampleSizes:
     #pyplot.axis(distributionMeans)
     #pyplot.show()
 
-    pyplot.plot(distributionMeans,tTestRejectedPercentagesVector,'ro',distributionMeans,wilcoxonRejectedPercentagesVector,'bs')
+    pyplot.plot(distributionMeans,tTestRejectedPercentagesVector,distributionMeans,wilcoxonRejectedPercentagesVector)
+    #pyplot.legend(sampleSize)
     #pyplot.axis([min(distributionMeans),max(distributionMeans),min(wilcoxonRejectedPercentagesVector),max(wilcoxonRejectedPercentagesVector)])
-    pyplot.show()
+pyplot.legend(sampleSizes,bbox_to_anchor=(0, 0))
+pyplot.show()
 
 
 
